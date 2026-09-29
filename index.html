@@ -86,9 +86,10 @@
             <h1>Elifimeee <3 🤍</h1>
             <img src="1.jpeg" alt="Giriş Resmi" class="site-img">
             <p>yakısıklı kel essegin'den sana bir sürpriz var. Giriş yapmak için şifreyi gir:</p>
+            <!-- type="button" yapılarak sayfanın kendi kendine yenilenme hatası çözüldü -->
             <input type="text" id="password-input" placeholder="Şifreyi buraya yaz...">
             <br>
-            <button class="btn" onclick="checkPassword()">Giriş Yap</button>
+            <button type="button" class="btn" onclick="checkPassword()">Giriş Yap</button>
             <p class="hint">💡 İpucu: garibanın plakalığı 🏍</p>
         </div>
 
@@ -101,8 +102,8 @@
             </div>
             <p>Güzel sevgilim Elif Nisa, seni çok seviyorum ve kırdığım için çok özür dilerim. lütfenlütfeeennnn esseginii affet...</p>
             <div style="margin-top: 20px;">
-                <button class="btn" onclick="accept()">EVET</button>
-                <button class="btn btn-no" id="no-btn" onmouseover="moveButton()" onclick="moveButton()">HAYIR</button>
+                <button type="button" class="btn" onclick="accept()">EVET</button>
+                <button type="button" class="btn btn-no" id="no-btn" onmouseover="moveButton()" onclick="moveButton()">HAYIR</button>
             </div>
         </div>
 
@@ -120,15 +121,19 @@
         function checkPassword() {
             const password = document.getElementById('password-input').value.trim().toLowerCase();
             
-            // Buraya gerçek plakanı tırnakların içine ekleyebilirsin
+            // Buraya tırnakların içine motorunun gerçek plakasını (örn: "34abc123") yazabilirsin.
+            // Şu an test etmen için "plaka" kelimesini de doğru kabul ediyor.
             if(password === "plaka" || password === "34abc123") { 
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('main-screen').classList.remove('hidden');
-                document.getElementById('no-btn').style.position = 'relative';
-                document.getElementById('no-btn').style.left = '0';
-                document.getElementById('no-btn').style.top = '0';
+                
+                // Elemanların konumunu sıfırla
+                const noBtn = document.getElementById('no-btn');
+                noBtn.style.position = 'relative';
+                noBtn.style.left = '0';
+                noBtn.style.top = '0';
             } else {
-                alert("Yanlış şifre kel essegi! Tekrar dene 🏍");
+                alert("Yanlış şifre bi tanem");
             }
         }
 
@@ -150,4 +155,5 @@
 
 </body>
 </html>
+
 
