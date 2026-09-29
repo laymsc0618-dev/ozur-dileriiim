@@ -17,7 +17,8 @@
             padding: 20px;
             box-sizing: border-box;
             text-align: center;
-            overflow-x: hidden;
+            overflow: hidden;
+            position: relative;
         }
         .container {
             background: white;
@@ -27,6 +28,7 @@
             max-width: 450px;
             width: 100%;
             position: relative;
+            z-index: 10;
         }
         h1 { color: #ff4d6d; font-size: 24px; margin-bottom: 10px; }
         p { font-size: 16px; line-height: 1.5; }
@@ -94,6 +96,34 @@
             position: relative;
             margin-top: 20px;
         }
+
+        /* 🎆 HAVAİ FİŞEK VE KALP EFEKTLERİNİN CSS KODLARI */
+        .heart {
+            position: fixed;
+            bottom: -50px;
+            font-size: 24px;
+            color: #ff4d6d;
+            pointer-events: none;
+            z-index: 1;
+            animation: floatUp 4s linear forwards;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
+        }
+        .firework {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 2;
+            animation: explode 1s ease-out forwards;
+        }
+        @keyframes explode {
+            0% { transform: translate(0, 0); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)); opacity: 0; }
+        }
     </style>
 </head>
 <body>
@@ -117,7 +147,7 @@
                 <img src="2.jpeg" alt="Anılar 1" class="site-img">
                 <img src="3.jpeg" alt="Anılar 2" class="site-img">
             </div>
-            <p>guzelım askıımm bi taneem her seyiim, seni çok seviyorum ve kırdığım için çok özür dilerim. lütfenlütfeeennnn esseginii affet...</p>
+            <p>Güzel sevgilim Elif Nisa, seni çok seviyorum ve kırdığım için çok özür dilerim. lütfenlütfeeennnn esseginii affet...</p>
             
             <div class="btn-wrapper">
                 <button type="button" class="btn" id="yes-btn" onclick="accept()">EVET</button>
@@ -138,6 +168,7 @@
     <script>
         let noScale = 1.0;
         let yesScale = 1.0;
+        let effectIntervals = [];
 
         function checkPassword() {
             const password = document.getElementById('password-input').value.trim().toLowerCase();
@@ -145,45 +176,37 @@
             if(password === "mn4en") { 
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('main-screen').classList.remove('hidden');
-                
                 noScale = 1.0;
                 yesScale = 1.0;
-                const noBtn = document.getElementById('no-btn');
-                noBtn.style.position = 'relative';
-                noBtn.style.left = '0';
-                noBtn.style.top = '0';
-                noBtn.style.transform = 'scale(1)';
-                noBtn.style.opacity = '1';
-                noBtn.style.pointerEvents = 'auto';
-                document.getElementById('yes-btn').style.transform = 'scale(1)';
             } else {
-                alert("yanlıs sifre bi taneeem");
+                alert("Yanlış şifre bi tanem");
             }
         }
 
+        // EVET Butonuna basıldığında coşku animasyonlarını başlatan fonksiyon
         function accept() {
             document.getElementById('main-screen').classList.add('hidden');
             document.getElementById('success-screen').classList.remove('hidden');
+            
+            // Arka arkaya havai fişek ve kalp fırlatmayı başlat
+            effectIntervals.push(setInterval(createHeart, 150));
+            effectIntervals.push(setInterval(createFireworkCluster, 600));
         }
 
         function moveButton() {
             const noBtn = document.getElementById('no-btn');
             const yesBtn = document.getElementById('yes-btn');
             
-            // Hayır butonunu küçült, Evet butonunu devasa yap
             if (noScale > 0.1) {
-                noScale -= 0.15; // Hızla küçülmesi için değeri artırdık
-                yesScale += 0.3; // Evet butonu daha çok büyüsün
-                
+                noScale -= 0.15;
+                yesScale += 0.3;
                 noBtn.style.transform = `scale(${noScale})`;
                 yesBtn.style.transform = `scale(${yesScale})`;
             } else {
-                // Limit dolduğunda butonu tamamen gizle ve tıklanamaz yap
                 noBtn.style.opacity = '0';
                 noBtn.style.pointerEvents = 'none';
             }
             
-            // Rastgele kaçış koordinatları (Ekrandan taşmayacak şekilde)
             const x = Math.random() * (window.innerWidth - 120) + 10;
             const y = Math.random() * (window.innerHeight - 80) + 10;
             
@@ -191,6 +214,53 @@
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
             noBtn.style.zIndex = '9999';
+        }
+
+        // ❤️ Kalp Yağmuru Fonksiyonu
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            // Farklı kalpler ve emojiler havada uçuşsun
+            const heartTypes = ['❤️', '💖', '🤍', '🥰', '✨'];
+            heart.innerText = heartTypes[Math.floor(Math.random() * heartTypes.length)];
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.fontSize = Math.random() * 20 + 15 + 'px';
+            heart.style.animationDuration = Math.random() * 2 + 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 4000);
+        }
+
+        // 🎆 Havai Fişek Patlama Noktası Seçici
+        function createFireworkCluster() {
+            const startX = Math.random() * window.innerWidth;
+            const startY = Math.random() * (window.innerHeight * 0.6); // Ekranın üst yarısında patlasınlar
+            const colors = ['#ff4d6d', '#ff758f', '#ffb3c6', '#ffc8dd', '#ff007f', '#fff'];
+            
+            for (let i = 0; i < 40; i++) {
+                createFireworkParticle(startX, startY, colors[Math.floor(Math.random() * colors.length)]);
+            }
+        }
+
+        // Havai Fişek Kıvılcımları
+        function createFireworkParticle(x, y, color) {
+            const particle = document.createElement('div');
+            particle.classList.add('firework');
+            particle.style.left = x + 'px';
+            particle.style.top = y + 'px';
+            particle.style.backgroundColor = color;
+            particle.style.boxShadow = `0 0 6px ${color}`;
+            
+            // Kıvılcımların dairesel etrafa saçılması için açı hesabı
+            const angle = Math.random() * Math.PI * 2;
+            const velocity = Math.random() * 120 + 40;
+            const targetX = Math.cos(angle) * velocity + 'px';
+            const targetY = Math.sin(angle) * velocity + 'px';
+            
+            particle.style.setProperty('--x', targetX);
+            particle.style.setProperty('--y', targetY);
+            
+            document.body.appendChild(particle);
+            setTimeout(() => particle.remove(), 1000);
         }
     </script>
 
