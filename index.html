@@ -17,6 +17,7 @@
             padding: 20px;
             box-sizing: border-box;
             text-align: center;
+            overflow-x: hidden;
         }
         .container {
             background: white;
@@ -25,10 +26,12 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             max-width: 450px;
             width: 100%;
+            position: relative;
         }
         h1 { color: #ff4d6d; font-size: 24px; margin-bottom: 10px; }
         p { font-size: 16px; line-height: 1.5; }
         .hidden { display: none; }
+        
         .btn {
             background-color: #ff4d6d;
             color: white;
@@ -39,11 +42,18 @@
             cursor: pointer;
             margin: 10px;
             font-weight: bold;
-            transition: 0.3s;
+            transition: transform 0.2s ease, font-size 0.2s ease, padding 0.2s ease, opacity 0.2s ease;
+            display: inline-block;
         }
-        .btn:hover { background-color: #ff758f; transform: scale(1.05); }
-        .btn-no { background-color: #6c757d; position: relative; }
+        .btn:hover { background-color: #ff758f; }
+        
+        .btn-no { 
+            background-color: #6c757d; 
+            position: relative; 
+            transition: all 0.2s ease;
+        }
         .btn-no:hover { background-color: #5a6268; }
+        
         input {
             padding: 12px;
             width: 80%;
@@ -76,6 +86,14 @@
         .img-group .site-img {
             max-width: 48%;
         }
+        .btn-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80px;
+            position: relative;
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -99,9 +117,10 @@
                 <img src="2.jpeg" alt="Anılar 1" class="site-img">
                 <img src="3.jpeg" alt="Anılar 2" class="site-img">
             </div>
-            <p>Güzel sevgilim Elif Nisa, seni çok seviyorum ve kırdığım için çok özür dilerim. lütfenlütfeeennnn esseginii affet...</p>
-            <div style="margin-top: 20px;">
-                <button type="button" class="btn" onclick="accept()">EVET</button>
+            <p>guzelım askıımm bi taneem her seyiim, seni çok seviyorum ve kırdığım için çok özür dilerim. lütfenlütfeeennnn esseginii affet...</p>
+            
+            <div class="btn-wrapper">
+                <button type="button" class="btn" id="yes-btn" onclick="accept()">EVET</button>
                 <button type="button" class="btn btn-no" id="no-btn" onmouseover="moveButton()" onclick="moveButton()">HAYIR</button>
             </div>
         </div>
@@ -117,20 +136,28 @@
     </div>
 
     <script>
+        let noScale = 1.0;
+        let yesScale = 1.0;
+
         function checkPassword() {
             const password = document.getElementById('password-input').value.trim().toLowerCase();
             
-            // Şifre tam olarak mn4en yapıldı!
             if(password === "mn4en") { 
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('main-screen').classList.remove('hidden');
                 
+                noScale = 1.0;
+                yesScale = 1.0;
                 const noBtn = document.getElementById('no-btn');
                 noBtn.style.position = 'relative';
                 noBtn.style.left = '0';
                 noBtn.style.top = '0';
+                noBtn.style.transform = 'scale(1)';
+                noBtn.style.opacity = '1';
+                noBtn.style.pointerEvents = 'auto';
+                document.getElementById('yes-btn').style.transform = 'scale(1)';
             } else {
-                alert("Yanlış şifre bi tanem");
+                alert("yanlıs sifre bi taneeem");
             }
         }
 
@@ -141,12 +168,29 @@
 
         function moveButton() {
             const noBtn = document.getElementById('no-btn');
-            const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 100);
-            const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 100);
+            const yesBtn = document.getElementById('yes-btn');
+            
+            // Hayır butonunu küçült, Evet butonunu devasa yap
+            if (noScale > 0.1) {
+                noScale -= 0.15; // Hızla küçülmesi için değeri artırdık
+                yesScale += 0.3; // Evet butonu daha çok büyüsün
+                
+                noBtn.style.transform = `scale(${noScale})`;
+                yesBtn.style.transform = `scale(${yesScale})`;
+            } else {
+                // Limit dolduğunda butonu tamamen gizle ve tıklanamaz yap
+                noBtn.style.opacity = '0';
+                noBtn.style.pointerEvents = 'none';
+            }
+            
+            // Rastgele kaçış koordinatları (Ekrandan taşmayacak şekilde)
+            const x = Math.random() * (window.innerWidth - 120) + 10;
+            const y = Math.random() * (window.innerHeight - 80) + 10;
             
             noBtn.style.position = 'fixed';
             noBtn.style.left = x + 'px';
             noBtn.style.top = y + 'px';
+            noBtn.style.zIndex = '9999';
         }
     </script>
 
