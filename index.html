@@ -86,7 +86,6 @@
             <h1>Elifimeee <3 🤍</h1>
             <img src="1.jpeg" alt="Giriş Resmi" class="site-img">
             <p>yakısıklı kel essegin'den sana bir sürpriz var. Giriş yapmak için şifreyi gir:</p>
-            <!-- type="button" yapılarak sayfanın kendi kendine yenilenme hatası çözüldü -->
             <input type="text" id="password-input" placeholder="Şifreyi buraya yaz...">
             <br>
             <button type="button" class="btn" onclick="checkPassword()">Giriş Yap</button>
@@ -121,13 +120,11 @@
         function checkPassword() {
             const password = document.getElementById('password-input').value.trim().toLowerCase();
             
-            // Buraya tırnakların içine motorunun gerçek plakasını (örn: "34abc123") yazabilirsin.
-            // Şu an test etmen için "plaka" kelimesini de doğru kabul ediyor.
-            if(password === "plaka" || password === "34abc123") { 
+            // Şifre tam olarak mn4en yapıldı!
+            if(password === "mn4en") { 
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('main-screen').classList.remove('hidden');
                 
-                // Elemanların konumunu sıfırla
                 const noBtn = document.getElementById('no-btn');
                 noBtn.style.position = 'relative';
                 noBtn.style.left = '0';
@@ -155,5 +152,3 @@
 
 </body>
 </html>
-
-
