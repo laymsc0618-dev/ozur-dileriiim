@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Elif Nisa & Mete</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffe5ec, #ffc2d1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            color: #4a4a4a;
+            transition: background 0.5s ease;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            position: relative;
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+        h1 { color: #ff477e; }
+        input[type="password"] {
+            width: 80%;
+            padding: 12px;
+            margin: 15px 0;
+            border: 2px solid #ffb3c6;
+            border-radius: 25px;
+            text-align: center;
+            font-size: 16px;
+            outline: none;
+        }
+        button {
+            background: #ff477e;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.2s ease, font-size 0.1s ease, padding 0.1s ease;
+        }
+        button:hover { background: #ff7096; }
+        .hint-text {
+            color: #a3a3a3;
+            font-size: 13px;
+            margin-top: 15px;
+            font-style: italic;
+        }
+        .hidden { display: none !important; }
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin-top: 20px;
+            min-height: 150px;
+            position: relative;
+        }
+        .absolute-btn {
+            position: absolute !important;
+            transition: transform 0.1s ease, left 0.1s ease, top 0.1s ease;
+        }
+        
+        /* FOTOĞRAF KUTUSU STİLLERİ */
+        .photo-wrapper {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid #ff477e;
+            margin: 10px auto 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #fff0f3;
+            box-shadow: 0 5px 15px rgba(255, 71, 126, 0.3);
+        }
+        .couple-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* ALBÜM DÜZENİ */
+        .album-container {
+            display: flex;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 10px 5px;
+            margin-bottom: 20px;
+            scroll-behavior: smooth;
+            justify-content: center;
+        }
+        .album-wrapper {
+            width: 100px;
+            height: 130px;
+            border-radius: 12px;
+            border: 3px solid #ff0055;
+            overflow: hidden;
+            background: #fff0f3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: transform 0.3s;
+        }
+        .album-wrapper:hover {
+            transform: scale(1.05);
+        }
+        
+        /* ŞATAFATLI KUTLAMA EKRANI STİLLERİ */
+        .celebrate-box {
+            background: rgba(255, 255, 255, 0.95) !important;
+            border: 5px solid #fff;
+            box-shadow: 0 0 50px rgba(255, 71, 126, 0.6) !important;
+            animation: pulse 1.5s infinite alternate;
+            transform: scale(1.05);
+        }
+        .celebrate-box h1 {
+            font-size: 40px;
+            color: #ff0055;
+            text-shadow: 0 0 10px rgba(255,0,85,0.3);
+            animation: bounce 0.8s infinite alternate;
+            margin-bottom: 15px;
+        }
+        
+        .party-item {
+            position: absolute;
+            font-size: 28px;
+            user-select: none;
+            pointer-events: none;
+            animation: floatAndSpin 4s linear infinite;
+            z-index: 1;
+        }
+        
+        @keyframes floatAndSpin {
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg) scale(0); opacity: 1; }
+            50% { transform: translateY(50vh) translateX(50px) rotate(180deg) scale(1.2); }
+            100% { transform: translateY(-10vh) translateX(-50px) rotate(360deg) scale(1.5); opacity: 0; }
+        }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 30px rgba(255, 71, 126, 0.5); }
+            100% { box-shadow: 0 0 60px rgba(255, 71, 126, 0.9), 0 0 20px rgba(255, 255, 255, 0.8); }
+        }
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 1. ŞİFRE EKRANI -->
+<div id="loginScreen" class="container">
+    <h1>Elifimeee &lt;3 🤍</h1>
+    <p>yakısıklı kel essegin'den sana bir sürpriz var. Giriş yapmak için şifreyi gir:</p>
+    <input type="password" id="passInput" placeholder="Şifreyi yazın...">
+    <br>
+    <button onclick="loginCheck()">Giriş Yap</button>
+    <div class="hint-text">İpucu: garibanın plakalığı 🏍️</div>
+</div>
+
+<!-- 2. ÖZÜR VE OYUN EKRANI -->
+<div id="mainScreen" class="container hidden">
+    <div class="photo-wrapper">
+        <img src="https://ibb.co" alt="Mete & Elif Nisa" class="couple-photo"><!-- -->
+    </div>
+    <h1>Beni Affediyor musun? 🥺</h1>
+    <p>Güzel sevgilim Elif Nisa, seni çok seviyorum ve kırdığım için çok özür dilerim. lütfenlütfeeennnn esseginii affet...</p>
+    <div class="btn-group">
+        <button id="btnYes" onclick="celebrate()">EVET</button>
+        <button id="btnNo" onclick="escapeBtn()">HAYIR</button>
+    </div>
+</div>
+
+<!-- 3. KUTLAMA EKRANI (ŞATAFATLI VE ALBÜMLÜ) -->
+<div id="celebrateScreen" class="container hidden">
+    <h1>TESSEKKURLER ASKIIIIMMM! 🎉🥳❤️</h1>
+    
+    <div class="album-container">
+        <div class="album-wrapper"><img src="https://ibb.co" class="couple-photo"></div><!-- -->
+        <div class="album-wrapper"><img src="https://ibb.co" class="couple-photo"></div><!-- -->
+        <div class="album-wrapper"><img src="https://ibb.co" class="couple-photo"></div><!-- -->
+    </div>
+
+    <p>Seni her seyden cok sevıyom senı bı taneemmmm!</p>
+    <p style="color: #ff477e; font-size: 22px;">İyi ki varsın, söz bir daha seni hiç üzmeyeceğim. 😘</p>
+    <p style="font-size: 14px; color: #888;">- Seninki (kel essegi'n) 🏍️</p>
+</div>
+
+<script>
+    let yesSize = 16;
+    let noScale = 1;
+    let isFirstClick = true;
+
+    function loginCheck() {
+        const userInput = document.getElementById('passInput').value.trim().toLowerCase();
+        if(userInput === 'mn4en') {
+            document.getElementById('loginScreen').classList.add('hidden');
+            document.getElementById('mainScreen').classList.remove('hidden');
+        } else {
+            alert('Hatalı şifre! İpucu: garibanın plakalığı 🏍️');
+        }
+    }
+
+    function escapeBtn() {
+        const noBtn = document.getElementById('btnNo');
+        const yesBtn = document.getElementById('btnYes');
+        
+        if (isFirstClick) {
+            noBtn.classList.add('absolute-btn');
+            isFirstClick = false;
+        }
+        
+        noScale -= 0.07;
+        
+        if (noScale > 0.05) {
+            noBtn.style.transform = `scale(${noScale})`;
+            
+            const padding = 100;
+            const x = Math.random() * (window.innerWidth - padding * 2) - (window.innerWidth / 2 - padding);
+            const y = Math.random() * (window.innerHeight - padding * 2) - (window.innerHeight / 2 - padding);
+            
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        } else {
+            noBtn.style.display = 'none';
+        }
+
+        yesSize += 12;
+        yesBtn.style.fontSize = yesSize + 'px';
+        yesBtn.style.padding = (yesSize/2) + 'px ' + (yesSize) + 'px';
+    }
+
+    function celebrate() {
+        document.getElementById('mainScreen').classList.add('hidden');
+        const celScreen = document.getElementById('celebrateScreen');
+        celScreen.classList.remove('hidden');
+        celScreen.classList.add('celebrate-box');
+        
+        const colors = ['#ffe5ec', '#ffc2d1', '#ffb3c6', '#ff85a1', '#ff477e', '#ff7096', '#ff99b6'];
+        let colorIndex = 0;
+        setInterval(() => {
+            document.body.style.background = `linear-gradient(135deg, ${colors[colorIndex]}, ${colors[(colorIndex + 1) % colors.length]})`;
+            colorIndex = (colorIndex + 1) % colors.length;
+        }, 400);
+
+        const partyEmojis = ['❤️', '💖', '🎉', '✨', '🥳', '💥', '🍿', '🧸', '🌹', '💘'];
+        setInterval(() => {
+            const item = document.createElement('div');
+            item.classList.add('party-item');
+            item.innerHTML = partyEmojis[Math.floor(Math.random() * partyEmojis.length)];
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = (Math.random() * 2 + 1.5) + 's';
+            document.body.appendChild(item);
+            setTimeout(() => item.remove(), 3500);
+        }, 80);
+    }
+</script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="./style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pen</title>
+  </head>
+  <body>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
