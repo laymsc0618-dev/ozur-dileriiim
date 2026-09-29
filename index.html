@@ -85,7 +85,7 @@
         <div id="login-screen">
             <h1>Elifimeee <3 🤍</h1>
             <img src="1.jpeg" alt="Giriş Resmi" class="site-img">
-            <p>Yakışıklı kel eşeğinden sana bir sürpriz var. Giriş yapmak için şifreyi gir:</p>
+            <p>yakısıklı kel essegin'den sana bir sürpriz var. Giriş yapmak için şifreyi gir:</p>
             <input type="text" id="password-input" placeholder="Şifreyi buraya yaz...">
             <br>
             <button class="btn" onclick="checkPassword()">Giriş Yap</button>
@@ -99,7 +99,7 @@
                 <img src="2.jpeg" alt="Anılar 1" class="site-img">
                 <img src="3.jpeg" alt="Anılar 2" class="site-img">
             </div>
-            <p>Güzel sevgilim Elif Nisa, seni çok seviyorum ve kırdığım için çok özür dilerim. Lütfen lütfeeennnn eşeğini affet...</p>
+            <p>Güzel sevgilim Elif Nisa, seni çok seviyorum ve kırdığım için çok özür dilerim. lütfenlütfeeennnn esseginii affet...</p>
             <div style="margin-top: 20px;">
                 <button class="btn" onclick="accept()">EVET</button>
                 <button class="btn btn-no" id="no-btn" onmouseover="moveButton()" onclick="moveButton()">HAYIR</button>
@@ -108,11 +108,11 @@
 
         <!-- 3. AŞAMA: TEŞEKKÜR EKRANI -->
         <div id="success-screen" class="hidden">
-            <h1>TEŞEKKÜRLER AŞKIM! 🎉🥳❤️</h1>
+            <h1>TESSEKKURLER ASKIIIIMMM! 🎉🥳❤</h1>
             <img src="4.jpeg" alt="Mutlu Son" class="site-img">
-            <p>Seni her şeyden çok seviyorum seni bir tanemmmm!</p>
+            <p>Seni her seyden cok sevıyom senı bı taneemmmm!</p>
             <p>İyi ki varsın, söz bir daha seni hiç üzmeyeceğim. 😘</p>
-            <p style="font-weight: bold; color: #ff4d6d; font-size: 18px; margin-top: 20px;">- Seninki (kel eşeğin) 🏍</p>
+            <p style="font-weight: bold; color: #ff4d6d; font-size: 18px; margin-top: 20px;">- Seninki (kel essegi'n) 🏍</p>
         </div>
     </div>
 
@@ -120,8 +120,7 @@
         function checkPassword() {
             const password = document.getElementById('password-input').value.trim().toLowerCase();
             
-            // "plaka" yazınca veya gerçek plakanı yazınca açılır. 
-            // İstersen "34abc123" yerine kendi plakanı direkt yazabilirsin.
+            // Buraya gerçek plakanı tırnakların içine ekleyebilirsin
             if(password === "plaka" || password === "34abc123") { 
                 document.getElementById('login-screen').classList.add('hidden');
                 document.getElementById('main-screen').classList.remove('hidden');
@@ -151,3 +150,4 @@
 
 </body>
 </html>
+
